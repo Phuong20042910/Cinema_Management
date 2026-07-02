@@ -1,0 +1,68 @@
+/* ==============================
+   KEYFRAMES
+   ============================== */
+   @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px rgba(255, 42, 42, 0.2); }
+    50% { box-shadow: 0 0 25px rgba(255, 42, 42, 0.6); }
+    100% { box-shadow: 0 0 10px rgba(255, 42, 42, 0.2); }
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  /* ==============================
+     ANIMATION CLASSES
+     ============================== */
+  .fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .slide-up {
+    opacity: 0;
+    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .slide-down {
+    opacity: 0;
+    animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  
+  .hover-float:hover {
+    animation: float 2s ease-in-out infinite;
+  }

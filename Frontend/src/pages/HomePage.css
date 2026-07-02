@@ -1,0 +1,253 @@
+/* ==============================
+   LOADING SCREEN
+   ============================== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-bg-primary);
+  z-index: 1000;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 42, 42, 0.2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-4);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-heading);
+  letter-spacing: 2px;
+}
+
+/* ==============================
+   HERO SLIDER SECTION
+   ============================== */
+.hero-slider-section {
+  position: relative;
+  height: 85vh;
+  min-height: 600px;
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  transform: scale(1.05);
+}
+
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 5;
+}
+
+/* We want the overlay gradient to look elegant in Light mode */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(248,250,252,1) 0%, rgba(248,250,252,0.95) 30%, rgba(248,250,252,0.6) 60%, transparent 100%),
+              linear-gradient(0deg, var(--color-bg-primary) 0%, transparent 15%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 650px;
+  padding-top: 25vh; 
+  color: var(--color-text-primary);
+}
+
+.hero-title {
+  font-size: var(--font-size-hero);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-4);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.hero-desc {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-8);
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+.slide-indicators {
+  position: absolute;
+  bottom: 120px; /* Leave space for quick booking bar */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-2);
+  z-index: 20;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--color-border-focus);
+  transition: all var(--transition-fast);
+  padding: 0;
+}
+
+.indicator-dot.active {
+  background-color: var(--color-primary);
+  width: 30px;
+  border-radius: 6px;
+}
+
+/* ==============================
+   QUICK BOOKING BAR
+   ============================== */
+.quick-booking-wrapper {
+  position: relative;
+  margin-top: -60px; /* Overlap the hero section */
+  z-index: 30;
+  margin-bottom: var(--spacing-8);
+}
+
+.quick-booking-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+}
+
+.booking-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-field label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-2);
+}
+
+.btn-search-ticket {
+  height: 48px; /* Match input height */
+  padding: 0 var(--spacing-8);
+}
+
+@media (max-width: 768px) {
+  .quick-booking-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ==============================
+   MOVIE SECTIONS
+   ============================== */
+.movie-section {
+  padding: var(--spacing-8) var(--spacing-4);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.title-decorator {
+  display: inline-block;
+  width: 6px;
+  height: 32px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-view-all {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color var(--transition-fast);
+}
+
+.btn-view-all:hover {
+  color: var(--color-text-primary);
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-8);
+}
+
+/* ==============================
+   NEWSLETTER
+   ============================== */
+.newsletter-section {
+  padding: var(--spacing-16) 0;
+}
+
+.newsletter-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.newsletter-content h2 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-2);
+}
+
+.newsletter-form {
+  min-width: 400px;
+}
+
+@media (max-width: 768px) {
+  .newsletter-box {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+  }
+  .newsletter-form {
+    min-width: 100%;
+    flex-direction: column;
+  }
+}

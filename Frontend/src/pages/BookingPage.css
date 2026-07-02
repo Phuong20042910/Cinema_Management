@@ -1,0 +1,93 @@
+/* ==============================
+   BOOKING PAGE
+   ============================== */
+.booking-page {
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: var(--spacing-16);
+}
+
+.booking-header {
+  margin-bottom: var(--spacing-8);
+  text-align: center;
+}
+
+.page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2);
+}
+
+.date-selector {
+  display: flex;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-12);
+  overflow-x: auto;
+  padding-bottom: var(--spacing-4);
+  scrollbar-width: thin;
+}
+
+.date-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-normal);
+}
+
+.date-btn:hover {
+  background-color: var(--color-bg-elevated-hover);
+  border-color: var(--color-primary-transparent);
+}
+
+.date-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow);
+}
+
+.date-day {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-1);
+}
+
+.date-num {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.cinema-card-wide {
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.cinema-card-wide:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.showtime-btn {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-6);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: white;
+  transition: all var(--transition-fast);
+}
+
+.showtime-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}

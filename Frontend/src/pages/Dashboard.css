@@ -1,0 +1,126 @@
+/* ==============================
+   DASHBOARD / PROFILE PAGES
+   ============================== */
+.dashboard-page {
+  padding-top: 120px;
+  padding-bottom: var(--spacing-16);
+  min-height: 80vh;
+}
+
+.page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  margin-bottom: var(--spacing-8);
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  background: var(--color-bg-elevated);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-8);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  box-shadow: var(--shadow-glow);
+}
+
+.profile-name {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-1);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 42, 42, 0.2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: var(--spacing-8) 0;
+}
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.booking-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-elevated);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-fast);
+}
+
+.booking-card:hover {
+  transform: translateX(10px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.booking-movie {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-1);
+}
+
+.booking-total {
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  color: white;
+}
+
+.badge.success {
+  background-color: rgba(0, 255, 136, 0.15);
+  color: var(--color-success);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.dashboard-panel {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-6);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.panel-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.btn-text-error {
+  color: var(--color-error);
+  transition: color var(--transition-fast);
+}
+.btn-text-error:hover {
+  color: #ff6666;
+  text-shadow: 0 0 10px rgba(255,51,51,0.5);
+}

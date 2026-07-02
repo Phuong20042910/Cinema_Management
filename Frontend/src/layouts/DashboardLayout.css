@@ -1,0 +1,116 @@
+/* ==============================
+   DASHBOARD SAAS LAYOUT
+   ============================== */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+.sidebar {
+  width: 260px;
+  background-color: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: var(--spacing-6) var(--spacing-4);
+  overflow-y: auto;
+}
+
+.nav-group-title {
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing-2);
+  padding-left: var(--spacing-2);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+}
+
+.sidebar-link.active {
+  background-color: rgba(255, 42, 42, 0.1);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.sidebar-footer {
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+}
+
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: white;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dashboard-topbar {
+  height: 70px;
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.topbar-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.btn-icon {
+  font-size: 20px;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-icon:hover {
+  opacity: 1;
+}
+
+.dashboard-content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-8);
+}
