@@ -14,7 +14,9 @@ function MoviesManager() {
     description: '',
     duration: '',
     posterUrl: '',
-    status: 'Đang chiếu'
+    releaseDate: '',
+    genres: [],
+    status: 'NOW_SHOWING'
   });
 
   const fetchMovies = async () => {
@@ -45,16 +47,27 @@ function MoviesManager() {
   const handleOpenModal = (movie = null) => {
     if (movie) {
       setEditingId(movie._id);
+      const formattedDate = movie.releaseDate ? new Date(movie.releaseDate).toISOString().split('T')[0] : '';
       setFormData({
         title: movie.title,
         description: movie.description || '',
         duration: movie.duration,
         posterUrl: movie.posterUrl,
-        status: movie.status || 'Đang chiếu'
+        releaseDate: formattedDate,
+        genres: movie.genres || [],
+        status: movie.status || 'NOW_SHOWING'
       });
     } else {
       setEditingId(null);
-      setFormData({ title: '', description: '', duration: '', posterUrl: '', status: 'Đang chiếu' });
+      setFormData({ 
+        title: '', 
+        description: '', 
+        duration: '', 
+        posterUrl: '', 
+        releaseDate: '', 
+        genres: [], 
+        status: 'NOW_SHOWING' 
+      });
     }
     setShowModal(true);
   };
@@ -76,6 +89,24 @@ function MoviesManager() {
     }
   };
 
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 'NOW_SHOWING': return 'Đang chiếu';
+      case 'COMING_SOON': return 'Sắp chiếu';
+      case 'STOPPED': return 'Ngưng chiếu';
+      default: return status || 'Đang chiếu';
+    }
+  };
+
+  const getStatusBadgeClass = (status) => {
+    switch (status) {
+      case 'NOW_SHOWING': return 'success';
+      case 'COMING_SOON': return 'warning';
+      case 'STOPPED': return 'danger';
+      default: return 'success';
+    }
+  };
+
   return (
     <div className="movies-manager fade-in">
       <div className="flex justify-between items-center mb-8">
@@ -94,8 +125,8 @@ function MoviesManager() {
               <div className="flex-1">
                 <h3 className="font-bold text-lg">{movie.title}</h3>
                 <p className="text-xs text-muted mb-2">{movie.genres?.join(', ')}</p>
-                <span className={`badge ${movie.status === 'Đang chiếu' ? 'success' : 'warning'}`}>
-                  {movie.status || 'NOW_SHOWING'}
+                <span className={`badge ${getStatusBadgeClass(movie.status)}`}>
+                  {getStatusLabel(movie.status)}
                 </span>
                 <div className="mt-4 flex gap-2">
                   <button className="btn-outline text-xs py-1 px-3" onClick={() => handleOpenModal(movie)}>SỬA</button>
@@ -126,11 +157,29 @@ function MoviesManager() {
                 <div className="booking-field">
                   <label>Trạng thái</label>
                   <select className="input-field" value={formData.status} onChange={e => setFormData({...formData, status: e.target.value})}>
-                    <option value="Đang chiếu">Đang chiếu</option>
-                    <option value="Sắp chiếu">Sắp chiếu</option>
-                    <option value="Ngưng chiếu">Ngưng chiếu</option>
+                    <option value="NOW_SHOWING">Đang chiếu</option>
+                    <option value="COMING_SOON">Sắp chiếu</option>
+                    <option value="STOPPED">Ngưng chiếu</option>
                   </select>
                 </div>
+              </div>
+              <div className="grid-2-col gap-4">
+                <div className="booking-field">
+                  <label>Ngày khởi chiếu</label>
+                  <input type="date" className="input-field" 
+                    value={formData.releaseDate} onChange={e => setFormData({...formData, releaseDate: e.target.value})} required />
+                </div>
+                <div className="booking-field">
+                  <label>Thể loại (phân cách bằng dấu phẩy)</label>
+                  <input type="text" className="input-field" placeholder="Hành động, Viễn tưởng" 
+                    value={formData.genres ? formData.genres.join(', ') : ''} 
+                    onChange={e => setFormData({...formData, genres: e.target.value.split(',').map(s => s.trim())})} />
+                </div>
+              </div>
+              <div className="booking-field">
+                <label>Mô tả phim</label>
+                <textarea className="input-field min-h-[80px]" placeholder="Nội dung tóm tắt..." 
+                  value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})}></textarea>
               </div>
               <div className="booking-field">
                 <label>URL Poster</label>

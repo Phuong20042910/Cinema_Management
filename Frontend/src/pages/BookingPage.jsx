@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useSearchParams } from 'react-router-dom';
 import { getMovieById, getShowtimesByMovie } from '../services/api';
 import './BookingPage.css';
 
 function BookingPage() {
   const { movieId } = useParams();
+  const [searchParams] = useSearchParams();
+  const queryCinemaId = searchParams.get('cinemaId');
+  const queryDate = searchParams.get('date');
+
   const [movie, setMovie] = useState(null);
   const [showtimes, setShowtimes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +26,12 @@ function BookingPage() {
         if (s.length > 0) {
           const dates = [...new Set(s.map(st => st.startTime.split('T')[0]))].sort();
           if (dates.length > 0) {
-            setSelectedDate(dates[0]);
+            // Pre-select date from query parameters if valid, otherwise fallback to the first date
+            if (queryDate && dates.includes(queryDate)) {
+              setSelectedDate(queryDate);
+            } else {
+              setSelectedDate(dates[0]);
+            }
           }
         }
         
@@ -33,7 +42,7 @@ function BookingPage() {
       }
     };
     fetchData();
-  }, [movieId]);
+  }, [movieId, queryDate]);
 
   if (loading) {
     return (
@@ -95,7 +104,10 @@ function BookingPage() {
         {/* Cinema List */}
         <div className="cinema-list flex-col gap-6 slide-up delay-100">
           {cinemas.map(cinema => (
-            <div key={cinema._id} className="cinema-card-wide bg-elevated rounded-lg p-6">
+            <div 
+              key={cinema._id} 
+              className={`cinema-card-wide bg-elevated rounded-lg p-6 ${cinema._id === queryCinemaId ? 'highlighted' : ''}`}
+            >
               <h2 className="cinema-name text-2xl font-bold mb-2">{cinema.name}</h2>
               <p className="cinema-address text-secondary mb-6">{cinema.address}</p>
               

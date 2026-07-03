@@ -7,12 +7,17 @@
   padding-top: 100px;
   padding-bottom: 60px;
   min-height: 100vh;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  animation: pageEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .page-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
 }
 
 .page-subtitle {
@@ -38,15 +43,19 @@
 
 /* Card Styles */
 .promo-card, .cinema-card {
-  background-color: var(--color-bg-elevated);
-  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  transition: transform var(--transition-normal);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--color-text-primary);
 }
 
 .promo-card:hover, .cinema-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-focus);
 }
 
 .promo-img {
@@ -111,6 +120,8 @@
 .movie-group {
   background-color: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   padding: 1.5rem;
   margin-bottom: 2rem;
   display: flex;
@@ -137,7 +148,7 @@
 }
 
 .cinema-group {
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid var(--color-border);
   padding-top: 1rem;
   margin-top: 1rem;
 }
@@ -145,6 +156,7 @@
 .cinema-group h4 {
   color: var(--color-primary);
   font-size: 1.1rem;
+  font-weight: 700;
   margin-bottom: 0.75rem;
 }
 
@@ -155,19 +167,380 @@
 }
 
 .time-slot-btn {
-  background-color: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  font-family: monospace;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-weight: 700;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
 }
 
 .time-slot-btn:hover {
+  background: linear-gradient(135deg, var(--color-primary), #e11d48);
   border-color: var(--color-primary);
-  color: var(--color-primary);
-  background-color: rgba(0, 255, 136, 0.05);
+  color: white;
+  box-shadow: 0 6px 16px rgba(244, 63, 94, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Cinema Map Layout Styling & Premium Enhancements */
+.cinemas-list-scrollable {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.cinemas-list-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cinemas-list-scrollable::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.cinemas-list-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.2);
+  border-radius: 10px;
+}
+
+.cinemas-list-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 63, 94, 0.45);
+}
+
+.cinema-search-wrapper {
+  position: relative;
+}
+
+.cinema-search-input {
+  width: 100%;
+  padding: 0.85rem 1rem 0.85rem 2.75rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.cinema-search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+.cinema-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-glow);
+  background: var(--color-bg-elevated);
+}
+
+.cinema-search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.city-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.city-filter-tab {
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.city-filter-tab:hover {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-focus);
+  transform: translateY(-1px);
+}
+
+.city-filter-tab.active {
+  background: linear-gradient(135deg, var(--color-primary), #e11d48);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.35);
+}
+
+/* Glassmorphism Cinema Card */
+.cinema-card-glass {
+  background: var(--color-bg-elevated);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.cinema-card-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cinema-card-glass:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-lg);
+}
+
+.cinema-card-glass:hover::before {
+  opacity: 1;
+}
+
+.cinema-card-glass.active {
+  border-color: var(--color-primary);
+  background: rgba(244, 63, 94, 0.05);
+  box-shadow: 0 12px 35px rgba(244, 63, 94, 0.12), inset 0 0 25px rgba(244, 63, 94, 0.03);
+}
+
+.cinema-amenity-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.cinema-card-glass:hover .cinema-amenity-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Pulsing Custom Marker on Map */
+.custom-marker {
+  width: 22px;
+  height: 22px;
+  background-color: var(--color-primary);
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(244, 63, 94, 0.25);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.custom-marker::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+  opacity: 0.8;
+  animation: pulse-ring 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+.custom-marker:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 18px var(--color-primary), 0 0 0 6px rgba(244, 63, 94, 0.4);
+}
+
+/* Custom styles for Goong Map Popups in Dark Theme */
+.goongjs-popup-content {
+  background-color: #131316 !important;
+  color: #ffffff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06) !important;
+  padding: 16px 20px !important;
+  border: none !important;
+}
+
+.goongjs-popup-content {
+  background: var(--color-bg-elevated) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: var(--spacing-4) !important;
+}
+
+.goongjs-popup-close-button {
+  color: var(--color-text-secondary) !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+  outline: none !important;
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer;
+}
+
+.goongjs-popup-close-button:hover {
+  color: var(--color-primary) !important;
+}
+
+.goongjs-popup-anchor-top .goongjs-popup-tip {
+  border-bottom-color: var(--color-bg-elevated) !important;
+}
+.goongjs-popup-anchor-bottom .goongjs-popup-tip {
+  border-top-color: var(--color-bg-elevated) !important;
+}
+.goongjs-popup-anchor-left .goongjs-popup-tip {
+  border-right-color: var(--color-bg-elevated) !important;
+}
+.goongjs-popup-anchor-right .goongjs-popup-tip {
+  border-left-color: var(--color-bg-elevated) !important;
+}
+
+/* =======================================
+   FULL SCREEN MAP LAYOUT FOR CINEMAS
+   ======================================= */
+.full-map-page-wrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px); /* Adjust for header height */
+  margin-top: 80px;
+  overflow: hidden;
+  max-width: 100% !important;
+}
+
+.floating-cinema-panel {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  bottom: 24px;
+  width: 400px;
+  background: var(--color-bg-elevated);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.panel-scrollable-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 6px;
+  margin-top: 8px;
+}
+
+/* Custom scrollbar for panel list */
+.panel-scrollable-list::-webkit-scrollbar {
+  width: 4px;
+}
+.panel-scrollable-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.panel-scrollable-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+.floating-cinema-panel select.input-field,
+.floating-cinema-panel input.input-field {
+  height: 44px !important;
+  background-color: var(--color-bg-secondary) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text-primary) !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 0 12px !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.floating-cinema-panel select.input-field:focus,
+.floating-cinema-panel input.input-field:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-glow) !important;
+}
+
+.floating-cinema-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.floating-cinema-card:hover {
+  border-color: var(--color-border-focus);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.floating-cinema-card.active {
+  border-color: var(--color-primary);
+  background: rgba(244, 63, 94, 0.05);
+  box-shadow: 0 4px 20px var(--color-primary-glow);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .full-map-page-wrapper {
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .floating-cinema-panel {
+    position: relative;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 45vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-width: 1px 0 0 0;
+    box-shadow: none;
+  }
 }

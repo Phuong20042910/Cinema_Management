@@ -31,46 +31,23 @@ const users = [
   }
 ];
 
-const movies = [
-  {
-    title: 'Bí Ẩn Hành Tinh Chết',
-    originalTitle: 'Dune: Part Two',
-    duration: 166,
-    releaseDate: new Date('2026-06-30'),
-    genres: ['Sci-Fi', 'Adventure'],
-    description: 'Một nhóm thám hiểm không gian phát hiện ra một hành tinh lạ...',
-    posterUrl: '/assets/poster_1.png',
-    trailerUrl: 'https://youtube.com',
-    director: 'Denis Villeneuve',
-    cast: ['Timothée Chalamet', 'Zendaya'],
-    status: 'NOW_SHOWING'
-  },
-  {
-    title: 'Đại Lộ Báo Thù',
-    originalTitle: 'Mad Max: Fury Road',
-    duration: 120,
-    releaseDate: new Date('2026-07-01'),
-    genres: ['Action', 'Thriller'],
-    description: 'Bị ám ảnh bởi quá khứ hỗn loạn...',
-    posterUrl: '/assets/poster_2.png',
-    trailerUrl: 'https://youtube.com',
-    director: 'George Miller',
-    cast: ['Tom Hardy', 'Charlize Theron'],
-    status: 'NOW_SHOWING'
-  }
-];
+const movies = [];
 
 const cinemas = [
   {
     name: 'CINEMAX Landmark 81',
     address: 'Tầng B1, Vincom Center Landmark 81, Quận Bình Thạnh',
     city: 'Hồ Chí Minh',
+    lat: 10.7981,
+    lng: 106.7219,
     rooms: [{ name: 'Phòng 1', capacity: 100 }, { name: 'Phòng 2', capacity: 80 }]
   },
   {
     name: 'CINEMAX Gò Vấp',
     address: 'Vincom Plaza Gò Vấp, Quận Gò Vấp',
     city: 'Hồ Chí Minh',
+    lat: 10.8291,
+    lng: 106.6806,
     rooms: [{ name: 'Phòng 3', capacity: 120 }]
   }
 ];
@@ -85,33 +62,6 @@ const importData = async () => {
     const createdUsers = await Promise.all(users.map(u => User.create(u)));
     const createdMovies = await Movie.insertMany(movies);
     const createdCinemas = await Cinema.insertMany(cinemas);
-
-    // Create some showtimes for the first movie at both cinemas
-    const showtimes = [
-      {
-        movie: createdMovies[0]._id,
-        cinema: createdCinemas[0]._id,
-        room: 'Phòng 1',
-        startTime: new Date('2026-06-30T18:30:00Z'),
-        price: 80000
-      },
-      {
-        movie: createdMovies[0]._id,
-        cinema: createdCinemas[0]._id,
-        room: 'Phòng 2',
-        startTime: new Date('2026-06-30T20:30:00Z'),
-        price: 90000
-      },
-      {
-        movie: createdMovies[0]._id,
-        cinema: createdCinemas[1]._id,
-        room: 'Phòng 1',
-        startTime: new Date('2026-06-30T19:00:00Z'),
-        price: 85000
-      }
-    ];
-
-    await Showtime.insertMany(showtimes);
 
     console.log('Dữ liệu phim, rạp và suất chiếu đã được nạp thành công!');
     process.exit();

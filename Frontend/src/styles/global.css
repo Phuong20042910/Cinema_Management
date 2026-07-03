@@ -97,3 +97,41 @@ input, select {
   -webkit-backdrop-filter: var(--backdrop-blur);
   border: 1px solid var(--color-border);
 }
+
+/* ── Bootstrap utility theme overrides ── */
+/* Force Bootstrap's .text-muted to follow our theme */
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* Force Bootstrap secondary text */
+.text-dark {
+  color: var(--color-text-primary) !important;
+}
+
+/* Force borders */
+.border-top, .border-bottom, .border {
+  border-color: var(--color-border) !important;
+}
+
+/* bg-secondary-subtle → uses our elevated card color */
+.bg-secondary-subtle {
+  background-color: var(--color-bg-primary) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Footer border */
+footer.footer {
+  background-color: var(--color-bg-primary) !important;
+  color: var(--color-text-muted) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* Navbar text links follow theme */
+.navbar .nav-link {
+  color: var(--color-text-primary) !important;
+  font-weight: 600;
+}
+.navbar .nav-link:hover {
+  color: var(--color-primary) !important;
+}

@@ -14,6 +14,7 @@ function ShowtimesManager() {
   const [formData, setFormData] = useState({
     movie: '',
     cinema: '',
+    room: '',
     startTime: '',
     price: 80000
   });
@@ -52,26 +53,38 @@ function ShowtimesManager() {
   const handleOpenModal = (showtime = null) => {
     if (showtime) {
       setEditingId(showtime._id);
-      // Format datetime-local string
       const dateObj = new Date(showtime.startTime);
       const localIso = new Date(dateObj.getTime() - (dateObj.getTimezoneOffset() * 60000)).toISOString().slice(0,16);
       
       setFormData({
         movie: showtime.movie._id,
         cinema: showtime.cinema._id,
+        room: showtime.room || '',
         startTime: localIso,
         price: showtime.price
       });
     } else {
       setEditingId(null);
+      const firstCinema = cinemas[0];
       setFormData({ 
         movie: movies[0]?._id || '', 
-        cinema: cinemas[0]?._id || '', 
+        cinema: firstCinema?._id || '', 
+        room: firstCinema?.rooms?.[0]?.name || '',
         startTime: '', 
         price: 80000 
       });
     }
     setShowModal(true);
+  };
+
+  const handleCinemaChange = (cinemaId) => {
+    const selectedCin = cinemas.find(c => c._id === cinemaId);
+    const defaultRoom = selectedCin?.rooms?.[0]?.name || '';
+    setFormData({
+      ...formData,
+      cinema: cinemaId,
+      room: defaultRoom
+    });
   };
 
   const handleSave = async (e) => {
@@ -91,6 +104,9 @@ function ShowtimesManager() {
     }
   };
 
+  const selectedCinemaObj = cinemas.find(c => c._id === formData.cinema);
+  const roomsList = selectedCinemaObj ? selectedCinemaObj.rooms || [] : [];
+
   return (
     <div className="fade-in">
       <div className="flex justify-between items-center mb-8">
@@ -107,6 +123,7 @@ function ShowtimesManager() {
             <tr className="border-b text-secondary">
               <th className="py-3 px-4">Phim</th>
               <th className="py-3 px-4">Cụm Rạp</th>
+              <th className="py-3 px-4">Phòng</th>
               <th className="py-3 px-4">Thời Gian</th>
               <th className="py-3 px-4">Giá Vé</th>
               <th className="py-3 px-4 text-right">Thao tác</th>
@@ -117,6 +134,7 @@ function ShowtimesManager() {
               <tr key={st._id} className="border-b hover:bg-white/5 transition-colors">
                 <td className="py-3 px-4 font-bold">{st.movie?.title || 'Phim đã xóa'}</td>
                 <td className="py-3 px-4">{st.cinema?.name || 'Rạp đã xóa'}</td>
+                <td className="py-3 px-4 text-secondary">{st.room || 'N/A'}</td>
                 <td className="py-3 px-4 text-accent">{new Date(st.startTime).toLocaleString('vi-VN')}</td>
                 <td className="py-3 px-4 text-success">{(st.price || 80000).toLocaleString()} đ</td>
                 <td className="py-3 px-4 text-right flex justify-end gap-2">
@@ -126,7 +144,7 @@ function ShowtimesManager() {
               </tr>
             ))}
             {showtimes.length === 0 && (
-              <tr><td colSpan="5" className="text-center py-6 text-muted">Chưa có suất chiếu nào.</td></tr>
+              <tr><td colSpan="6" className="text-center py-6 text-muted">Chưa có suất chiếu nào.</td></tr>
             )}
           </tbody>
         </table>
@@ -146,9 +164,21 @@ function ShowtimesManager() {
               </div>
               <div className="booking-field">
                 <label>Cụm Rạp</label>
-                <select className="input-field" value={formData.cinema} onChange={e => setFormData({...formData, cinema: e.target.value})} required>
+                <select className="input-field" value={formData.cinema} onChange={e => handleCinemaChange(e.target.value)} required>
                   <option value="" disabled>-- Chọn Rạp --</option>
                   {cinemas.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+                </select>
+              </div>
+              <div className="booking-field">
+                <label>Phòng Chiếu</label>
+                <select className="input-field" value={formData.room} onChange={e => setFormData({...formData, room: e.target.value})} required>
+                  <option value="" disabled>-- Chọn Phòng --</option>
+                  {roomsList.map((rm, idx) => (
+                    <option key={idx} value={rm.name}>{rm.name} (Sức chứa: {rm.capacity} ghế)</option>
+                  ))}
+                  {roomsList.length === 0 && (
+                    <option value="" disabled>Rạp chưa cấu hình phòng chiếu</option>
+                  )}
                 </select>
               </div>
               <div className="grid-2-col gap-4">

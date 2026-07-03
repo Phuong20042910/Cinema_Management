@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getMovieById } from '../services/api';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './MovieDetails.css';
 
 function MovieDetailsPage() {
@@ -32,10 +33,16 @@ function MovieDetailsPage() {
 
   if (!movie) {
     return (
-      <div className="container error-screen text-center mt-6">
-        <h2>Không tìm thấy phim</h2>
-        <Link to="/" className="btn-primary mt-4">Quay về trang chủ</Link>
-      </div>
+      <Container className="error-screen text-center mt-5">
+        <Card className="border-0 shadow p-5 bg-elevated text-center">
+          <Card.Body>
+            <h2 className="mb-4">Không tìm thấy phim</h2>
+            <Button as={Link} to="/" variant="primary" className="px-4 py-2">
+              Quay về trang chủ
+            </Button>
+          </Card.Body>
+        </Card>
+      </Container>
     );
   }
 
@@ -48,50 +55,59 @@ function MovieDetailsPage() {
         <div className="details-overlay"></div>
       </div>
 
-      <div className="container details-content">
-        <div className="details-grid">
-          
-          <div className="details-poster-col slide-up">
-            <div className="movie-poster-wrapper rounded-lg shadow-glow">
-              <img src={movie.posterUrl} alt={movie.title} className="movie-poster" />
+      <Container className="details-content mt-5">
+        <Row className="g-5">
+          <Col lg={4} md={12} className="details-poster-col text-center text-lg-start">
+            <div className="movie-poster-wrapper rounded shadow-lg overflow-hidden" style={{ maxWidth: '320px', margin: '0 auto' }}>
+              <img src={movie.posterUrl} alt={movie.title} className="movie-poster img-fluid w-100" />
             </div>
-          </div>
+          </Col>
 
-          <div className="details-info-col slide-up delay-100">
-            <h1 className="movie-title-large text-primary">{movie.title}</h1>
-            <h2 className="movie-original-title text-secondary">{movie.originalTitle || movie.title}</h2>
+          <Col lg={8} md={12} className="details-info-col text-start">
+            <h1 className="movie-title-large text-primary fw-bold display-4 mb-2">{movie.title}</h1>
+            <h2 className="movie-original-title text-secondary fs-5 mb-4">{movie.originalTitle || movie.title}</h2>
             
-            <div className="movie-meta flex gap-4 items-center mb-6 mt-4">
-              <span className="badge hot">C18</span>
-              <span className="text-warning font-bold">★ 8.5 / 10</span>
+            <div className="movie-meta d-flex flex-wrap gap-3 align-items-center mb-4">
+              <span className="badge bg-danger px-3 py-2 text-uppercase">C18</span>
+              <span className="text-warning fw-bold">★ 8.5 / 10</span>
               <span className="text-secondary">{movie.duration} phút</span>
               <span className="text-secondary">{movie.genres.join(', ')}</span>
             </div>
 
-            <div className="movie-description text-muted mb-8">
-              <h3 className="section-subtitle">Nội dung</h3>
-              <p>{movie.description || 'Đang cập nhật nội dung...'}</p>
+            <div className="movie-description text-muted mb-4">
+              <h3 className="section-subtitle fw-bold fs-5 border-bottom pb-2 mb-2">Nội dung</h3>
+              <p className="lh-lg">{movie.description || 'Đang cập nhật nội dung...'}</p>
             </div>
 
-            <div className="movie-crew grid-2-col mb-8">
-              <div>
-                <h3 className="section-subtitle">Đạo diễn</h3>
+            <Row className="movie-crew mb-4 g-3">
+              <Col sm={6} xs={12}>
+                <h3 className="section-subtitle fw-bold fs-5 border-bottom pb-2 mb-2">Đạo diễn</h3>
                 <p>{movie.director || 'Đang cập nhật'}</p>
-              </div>
-              <div>
-                <h3 className="section-subtitle">Diễn viên</h3>
+              </Col>
+              <Col sm={6} xs={12}>
+                <h3 className="section-subtitle fw-bold fs-5 border-bottom pb-2 mb-2">Diễn viên</h3>
                 <p>{movie.cast?.join(', ') || 'Đang cập nhật'}</p>
-              </div>
-            </div>
+              </Col>
+            </Row>
 
-            <div className="action-buttons flex gap-4">
-              <Link to={`/booking/${movie._id}`} className="btn-primary btn-lg">MUA VÉ NGAY</Link>
-              <button className="btn-outline btn-lg">XEM TRAILER</button>
+            <div className="action-buttons d-flex gap-3">
+              <Button as={Link} to={`/booking/${movie._id}`} variant="primary" size="lg" className="px-5 py-3 fw-bold">
+                MUA VÉ NGAY
+              </Button>
+              <Button 
+                href={movie.trailerUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                variant="outline-light" 
+                size="lg" 
+                className="px-4 py-3"
+              >
+                XEM TRAILER
+              </Button>
             </div>
-          </div>
-
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
