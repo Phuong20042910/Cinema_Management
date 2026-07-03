@@ -78,16 +78,78 @@ router.route('/showtime/:showtimeId/seats').get(getBookedSeatsForShowtime);
  */
 router.route('/my-tickets').get(protect, getMyBookings);
 
-// Endpoint cho thống kê Admin
+/**
+ * @swagger
+ * /api/bookings/stats:
+ *   get:
+ *     summary: Lấy thống kê đơn hàng (Admin)
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Trả về số liệu thống kê
+ */
 router.route('/stats').get(protect, admin, getBookingStats);
 
-// Endpoint cho Webhook Sepay (Public)
+/**
+ * @swagger
+ * /api/bookings/webhook/sepay:
+ *   post:
+ *     summary: Webhook nhận thanh toán từ Sepay (Public)
+ *     tags: [Bookings]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Xử lý thành công
+ */
 router.route('/webhook/sepay').post(sepayWebhook);
 
-// Endpoint polling trạng thái vé
+/**
+ * @swagger
+ * /api/bookings/{id}/status:
+ *   get:
+ *     summary: Kiểm tra trạng thái thanh toán của vé
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Trạng thái paymentStatus
+ */
 router.route('/:id/status').get(protect, getBookingStatus);
 
-// Endpoint cho Smart POS checkin
+/**
+ * @swagger
+ * /api/bookings/{id}/checkin:
+ *   put:
+ *     summary: Soát vé tại quầy (Smart POS)
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Soát vé thành công
+ *       400:
+ *         description: Lỗi hoặc vé đã sử dụng
+ */
 router.route('/:id/checkin').put(protect, staff, checkInTicket);
 
 export default router;

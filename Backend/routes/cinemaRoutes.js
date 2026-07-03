@@ -36,11 +36,75 @@ const router = express.Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Cinema'
+ *   post:
+ *     summary: Thêm cụm rạp mới (Admin)
+ *     tags: [Cinemas]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Cinema'
+ *     responses:
+ *       201:
+ *         description: Đã thêm cụm rạp
  */
 router.route('/')
   .get(getCinemas)
   .post(protect, admin, createCinema);
 
+/**
+ * @swagger
+ * /api/cinemas/{id}:
+ *   get:
+ *     summary: Lấy thông tin 1 rạp
+ *     tags: [Cinemas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Chi tiết cụm rạp
+ *   put:
+ *     summary: Cập nhật thông tin rạp (Admin)
+ *     tags: [Cinemas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Cinema'
+ *     responses:
+ *       200:
+ *         description: Đã cập nhật
+ *   delete:
+ *     summary: Xóa cụm rạp (Admin)
+ *     tags: [Cinemas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Đã xóa cụm rạp
+ */
 router.route('/:id')
   .get(getCinemaById)
   .put(protect, admin, updateCinema)
