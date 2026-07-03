@@ -6,7 +6,7 @@ export default defineConfig(() => {
   // 💡 ĐỔI THÀNH TRUE/FALSE TẠI ĐÂY
   // true  -> Gọi API tới localhost:5000 (Backend ở máy bạn)
   // false -> Gọi API tới link Railway (Backend trên mạng)
-  const useLocalBackend = true;
+  const useLocalBackend = false;
 
   return {
     plugins: [react()],
