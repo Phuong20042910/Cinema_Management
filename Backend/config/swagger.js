@@ -1,5 +1,11 @@
 import swaggerJsDoc from 'swagger-jsdoc';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -10,9 +16,9 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000',
-        description: 'Development server',
-      },
+        url: 'https://cinemamanagement-production-f12a.up.railway.app', // Update the production URL here as well
+        description: 'Production server',
+      }
     ],
     components: {
       securitySchemes: {
@@ -24,7 +30,7 @@ const swaggerOptions = {
       },
     },
   },
-  apis: ['./routes/*.js'],
+  apis: [path.join(__dirname, '../routes/*.js')],
 };
 
 export const swaggerDocs = swaggerJsDoc(swaggerOptions);
